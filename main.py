@@ -17,3 +17,8 @@ else:
     puzzle.random()
 
 puzzle.print()
+#print(puzzle.cost())
+if (puzzle.isSolvable()):
+    print("Puzzle solvable")
+else:
+    print("Puzzle not solvable :(")
