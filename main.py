@@ -1,24 +1,43 @@
 from puzzle import Puzzle
+import time
+
 # Main Program
 
-print("Welcome to 15 puzzle solver")
 print()
-print("DO YOU WANT TO USE INPUT FILE? (Y/N)")
+print("=====WELCOME TO 15 PUZZLE SOLVER!=====")
+print()
+print("*** DO YOU WANT TO USE INPUT FILE? (Y/N)")
 
-inputyes = input()
+# Asumsi input user selalu benar
+inputUser = input()
 
 puzzle = Puzzle()
 
-if (inputyes == "Y"):
-    inputFile = input("Masukkan nama file (dengan .txt): ")
+if (inputUser == "Y"):
+    inputFile = input("*** INPUT THE FILE NAME (with .txt): ")
     puzzle.readFile(inputFile)
 else:
-    print("random puzzle")
     puzzle.random()
 
+print()
+print("=====PUZZLE's INITIAL STATE=====")
 puzzle.print()
-#print(puzzle.cost())
+print()
+
 if (puzzle.isSolvable()):
-    print("Puzzle solvable")
+    startTime = time.time()
+    puzzle.generated.append(puzzle.puzzle)
+    print (puzzle.generated)
+    while(not puzzle.isSolution()):
+        puzzle.solvePuzzle()
+
+    endTime = time.time()    
+    print(puzzle.path)
+    puzzle.printPath()
+
+    print("PUZZLE IS SOLVED!")
+    print("TOTAL NODE GENERATED: ", Puzzle.node)
+    print("TIME TAKEN: ",endTime - startTime,"s")
+
 else:
-    print("Puzzle not solvable :(")
+    print("PUZZLE IS NOT SOLVABLE :(")
