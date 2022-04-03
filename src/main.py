@@ -26,14 +26,13 @@ print()
 
 if (puzzle.isSolvable()):
     startTime = time.time()
+
     puzzle.generated.append(puzzle.puzzle)
-    print (puzzle.generated)
+
     while(not puzzle.isSolution()):
         puzzle.solvePuzzle()
 
     endTime = time.time()    
-    print(puzzle.path)
-    puzzle.printPath()
 
     print("PUZZLE IS SOLVED!")
     print("TOTAL NODE GENERATED: ", Puzzle.node)

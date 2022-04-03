@@ -11,7 +11,6 @@ class Puzzle:
         self.puzzle = [0 for i in range(16)]
         self.queue = []
         self.generated = []
-        self.path = []
 
     # to randomize puzzle
     def random(self):
@@ -101,6 +100,13 @@ class Puzzle:
 
         return i
 
+    def isUp(self):
+        idx = self.find16()
+        if ( idx > 3):
+            return True
+        else:
+            return False
+        
     # move up
     def up(self):
         upPuzzle = copy.deepcopy(self.puzzle)
@@ -109,6 +115,13 @@ class Puzzle:
             upPuzzle[idx] = upPuzzle[idx - 4]
             upPuzzle[idx - 4] = 16
         return upPuzzle
+
+    def isDown(self):
+        idx = self.find16()
+        if ( idx < 12):
+            return True
+        else:
+            return False
 
     # move down
     def down(self):
@@ -119,14 +132,28 @@ class Puzzle:
             downPuzzle[idx + 4] = 16
         return downPuzzle
     
+    def isLeft(self):
+        idx = self.find16()
+        if (idx % 4 != 0):
+            return True
+        else:
+            return False
+
     # move left
     def left(self):
         leftPuzzle = copy.deepcopy(self.puzzle)
         idx = self.find16()
-        if ( idx % 4 != 0):
+        if (idx % 4 != 0):
             leftPuzzle[idx] = leftPuzzle[idx - 1]
             leftPuzzle[idx - 1] = 16
         return leftPuzzle 
+    
+    def isRight(self):
+        idx = self.find16()
+        if (idx % 4 != 3):
+            return True
+        else:
+            return False
 
     # move right
     def right(self):
@@ -144,63 +171,44 @@ class Puzzle:
         else:
             return False
     
-    # for printing
-    def printPath(self):
-        for path in self.path:
-            if (path == 'up'):
-                print(path)
-                self.puzzle = self.up()
-                self.print()
-                print()
-            elif (path == 'right'):
-                print(path)
-                self.puzzle = self.right()
-                self.print()
-                print()
-            elif (path == 'down'):
-                print(path)
-                self.puzzle = self.down()
-                self.print()
-                print()
-            else:
-                print(path)
-                self.puzzle = self.left()
-                self.print()
-                print()
-
     def solvePuzzle(self):
-        upPuzzle = self.up()
-        rightPuzzle = self.right()
-        downPuzzle = self.down()
-        leftPuzzle = self.left()
+        if (self.isUp()):
+            upPuzzle = self.up()     
+            if (not self.isGenerated(upPuzzle)):
+                self.generated.append(upPuzzle)
+                self.queue.append([self.cost(upPuzzle), upPuzzle, 'up'])
+                Puzzle.node += 1 
 
-        Puzzle.depth += 1
+        if (self.isRight()):
+            rightPuzzle = self.right() 
+            if (not self.isGenerated(rightPuzzle)):
+                self.generated.append(rightPuzzle)
+                self.queue.append([self.cost(rightPuzzle), rightPuzzle, 'right'])
+                Puzzle.node += 1          
 
-        if (not self.isGenerated(upPuzzle)):
-            self.generated.append(upPuzzle)
-            self.queue.append([self.cost(upPuzzle), upPuzzle, 'up'])
-            Puzzle.node += 1
-        if (not self.isGenerated(rightPuzzle)):
-            self.generated.append(rightPuzzle)
-            self.queue.append([self.cost(rightPuzzle), rightPuzzle, 'right'])
-            Puzzle.node += 1
-        if (not self.isGenerated(downPuzzle)):
-            self.generated.append(downPuzzle)
-            self.queue.append([self.cost(downPuzzle), downPuzzle, 'down'])
-            Puzzle.node += 1
-        if (not self.isGenerated(leftPuzzle)):
-            self.generated.append(leftPuzzle)
-            self.queue.append([self.cost(leftPuzzle), leftPuzzle, 'left'])
-            Puzzle.node += 1
+        if (self.isDown()):
+            downPuzzle = self.down()   
+            if (not self.isGenerated(downPuzzle)):
+                self.generated.append(downPuzzle)
+                self.queue.append([self.cost(downPuzzle), downPuzzle, 'down'])
+                Puzzle.node += 1    
+
+        if (self.isLeft()):
+            leftPuzzle = self.left()
+            if (not self.isGenerated(leftPuzzle)):
+                self.generated.append(leftPuzzle)
+                self.queue.append([self.cost(leftPuzzle), leftPuzzle, 'left'])
+                Puzzle.node += 1     
 
         self.queue.sort()
-        print()
 
         current = self.queue.pop(0)
+
         self.puzzle = current[1]
-        self.path.append(current[2])
-      
+        print(current[2])
+        self.print()
         print()
+      
 
 
 
