@@ -1,6 +1,6 @@
 # bnb-15-puzzle
 
-myConvexHull is a library that can return the convex hull of points in 2D space by implementing divide and conquer algorithm
+A 15-puzzle-solver made with Branch and Bound Algorithmm
 
 # Requirement
 
