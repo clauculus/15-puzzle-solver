@@ -8,15 +8,17 @@ Latest version of Python
 
 # How to use
 
+NOTE: MAKE SURE THE INPUT TXT FILE HAS NO SPACE AT THE END OF EACH LINES
+
 1. Clone this repository
 
 ```
-git clone https://github.com/clauculus/stima-convex-hull.git
+git clone https://github.com/clauculus/Tucil3_13520076.git
 ```
 
-2. If you want to use input file as the puzzle, make sure the .txt file is in the src directory
+2. If you want to use input file as the puzzle, make sure the .txt file is also in the src directory
 
-3. Run the program 
+3. Get into the src directory and run the program 
 ```
 python main.py
 ```
