@@ -271,10 +271,3 @@ class Puzzle:
         self.path = current[2]
         self.depth = current[3]
 
-
-
-
-
-
-
-
